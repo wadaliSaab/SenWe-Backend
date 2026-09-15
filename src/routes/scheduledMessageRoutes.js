@@ -1,0 +1,10 @@
+import express from "express";
+import authMiddleware from "../middleware/authMiddleware.js";
+import upload from "../middleware/uploadMiddleware.js";
+import userBlockedMiddleware from "../middleware/userBlockedMiddleware.js";
+import { scheduleMessage, getScheduledMessages, cancelScheduledMessage } from "../controllers/scheduledMessageController.js";
+const router = express.Router();
+router.post("/", authMiddleware,upload.array("files"), userBlockedMiddleware,  scheduleMessage);
+router.get("/", authMiddleware, getScheduledMessages);
+router.delete("/:scheduledMessageId", authMiddleware, cancelScheduledMessage);
+export default router;

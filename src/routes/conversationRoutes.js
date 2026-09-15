@@ -1,0 +1,11 @@
+import express from "express";
+import authMiddleware from "../middleware/authMiddleware.js";
+import { createConversation , getUserConversations , deleteConversation ,searchConversation ,togglePinConversation} from "../controllers/conversationControlller.js";
+import blockMiddleware from "../middleware/blockMiddleware.js";
+const router = express.Router();
+router.post("/", authMiddleware, blockMiddleware, createConversation );
+router.get("/", authMiddleware, getUserConversations);
+router.get("/search", authMiddleware, searchConversation);
+router.patch("/:conversationId/pin", authMiddleware, togglePinConversation);
+router.delete("/:conversationId", authMiddleware, deleteConversation);
+export default router;
